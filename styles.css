@@ -1,57 +1,275 @@
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+@import url('https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
+
+:root {
+    --navbar-bg: rgba(255, 255, 255, 0.05);
+    --navbar-border: rgba(255, 255, 255, 0.1);
+    --text-color: #fff;
+    --orb-orange: #FF5500;
+    --orb-purple: #9200BE;
 }
 
 body {
-    background-color: rgb(17, 17, 17);
-    padding: 20px;
-    color: white;
+    font-family: 'Afacad', sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background: #000;
     display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
 }
 
-.logo-astroya {
-    width: 80px;
-    height: 80px;
-    margin-left: 20px;
+/* ORBS DE LUZ */
+.orb {
+    position: absolute;
+    filter: blur(80px);
+    opacity: 0.6;
+    animation: orbFloat 15s ease-in-out infinite alternate;
+    z-index: 1;
+    border-radius: 50%;
 }
 
-.header-cabecalho {
-    border: 1px solid rgba(214, 214, 214, 0.123);
-    width: 80%;
-    border-radius: 100px;
-    background-color: rgba(240, 248, 255, 0);
-    backdrop-filter: blur(10px);
-    position: fixed;
-    left: 50%;
-    transform: translateX(-50%); 
+.orb.orange {
+    width: 350px;
+    height: 350px;
+    background: var(--orb-orange);
+    top: 0;
+    right: 0;
+    animation-delay: 0s;
 }
 
-.nav-itens {
-    padding: 5px;
-    display: flex;
-    flex-direction: row;
-    gap: 400px;
+.orb.purple {
+    width: 400px;
+    height: 400px;
+    background: var(--orb-purple);
+    top: 0;
+    right: 120px; /* distância da borda direita para separar das duas */
+    animation-delay: 7s;
 }
 
-.nav-lista {
+@keyframes orbFloat {
+    0% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(50px, -30px) scale(1.05); }
+    50% { transform: translate(0, 50px) scale(0.95); }
+    75% { transform: translate(-40px, -20px) scale(1.02); }
+    100% { transform: translate(0, 0) scale(1); }
+}
+
+/* NAVBAR */
+.navbar {
+    z-index: 10;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 100px
+    padding: 1rem 0.7rem;
+    border-radius: 50px;
+    background: var(--navbar-bg);
+    backdrop-filter: blur(15px) saturate(180%);
+    -webkit-backdrop-filter: blur(15px) saturate(180%);
+    border: 1px solid var(--navbar-border);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    width: 80%;
+    min-width: 550px;
+    justify-content: space-between;
+    position: absolute;   /* Adicionado */
+    top: 32px;            /* Adicionado: distância do topo */
+    left: 50%;            /* Adicionado: centraliza horizontalmente */
+    transform: translateX(-50%); /* Adicionado: centraliza horizontalmente */
 }
 
-.item-nav {
-    list-style: none;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 20px;
-    font-weight: 600;
+.navbar-logo {
+    flex-shrink: 0;
+    padding-left: 0.5rem;
 }
 
-.a-item-nav {
+.navbar-logo img {
+    height: 40px;
+    width: auto;
+}
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-grow: 1;
+    justify-content: center; /* já centraliza horizontalmente */
+    margin-left: 8rem;          /* remova margem lateral */
+    margin-right: 1rem;         /* remova margem lateral */
+}
+
+.navbar-links a {
+    color: var(--text-color);
     text-decoration: none;
-    color: white;
-    transition: 0.3s;
+    font-weight: 500;
+    font-size: 1.3rem;
+    transition: color 0.3s ease, transform 0.2s ease;
 }
 
+.navbar-links a:hover {
+    color: #d1d1d1;
+    transform: translateY(-2px);
+}
+
+.navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex-shrink: 0;
+    padding-right: 0.5rem;
+}
+
+.btn {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.3rem;
+    height: 45px;
+    padding: 0 1.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    border: 1px solid var(--navbar-border);
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.btn-language {
+    width: 45px;
+    height: 45px; /* Altura fixa para ser um círculo */
+    border-radius: 50%;
+    padding: 0; /* Remove padding para centralizar */
+}
+
+.btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.05);
+}
+
+/* Efeito de brilho líquido animado na navbar */
+.navbar::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50px;
+    z-index: -1;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.3), transparent, rgba(255, 255, 255, 0.3));
+    background-size: 200% 100%;
+    animation: moveLight 8s linear infinite;
+    opacity: 0.2;
+    transition: opacity 0.3s ease;
+}
+
+.navbar:hover::before {
+    opacity: 0.4;
+}
+
+.orb.orange1 {
+    width: 350px;
+    height: 350px;
+    background: var(--orb-orange);
+    position: absolute;
+    left: -15%;
+    bottom: -10%;
+    animation-delay: 0s;
+}
+
+.orb.purple1 {
+    width: 400px;
+    height: 400px;
+    background: var(--orb-purple);
+    position: absolute;
+    left: 5%;
+    bottom: 5%;
+    animation-delay: 7s;
+}
+
+.principal-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    text-align: center;
+}
+
+.principal-title {
+    font-size: 80px;
+    margin: 0;
+    color: white;
+    font-family: "Figtree", sans-serif;
+}
+
+.principal-paragraph {
+    color: #DADADA;
+    font-size: 32px;
+}
+
+@keyframes moveLight {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* Media Queries para Responsividade */
+@media (max-width: 992px) {
+    .navbar {
+        min-width: 90%;
+        padding: 0.8rem 0.5rem;
+    }
+    .navbar-links {
+        gap: 1rem;
+        margin-left: 0.8rem;
+        margin-right: 0.8rem;
+    }
+    .navbar-links a, .btn {
+        font-size: 0.9rem;
+    }
+    .btn-language {
+        width: 40px;
+        height: 40px;
+        font-size: 0.8rem;
+    }
+    .navbar-logo img {
+        height: 35px;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        padding: 1rem 0.7rem;
+        min-width: unset;
+        width: 95%;
+        border-radius: 20px;
+    }
+    .navbar-logo {
+        margin-bottom: 0.8rem;
+        padding-left: 0;
+    }
+    .navbar-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.8rem;
+        margin-bottom: 0.8rem;
+        width: 100%;
+    }
+    .navbar-actions {
+        width: 100%;
+        justify-content: center;
+        padding-right: 0;
+        gap: 0.6rem;
+    }
+    .btn {
+        flex-grow: 1;
+        text-align: center;
+        padding: 0;
+    }
+    .btn-language {
+        width: 45px;
+        flex-grow: 0;
+    }
+}
